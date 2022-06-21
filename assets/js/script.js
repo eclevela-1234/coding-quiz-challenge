@@ -11,20 +11,72 @@ var quiz  = [
     answer: "Al Gore"}
 ];
 
-// timer
+//Question Incrementer
+var questionIncrementer = 0 
 
+//element vars
+var timerEl = document.getElementById('timer');
+var highScoreEl = document.getElementById('high-scores');
+var questionEl = document.getElementById('question');
+var choicesEl = document.getElementById('choices');
+var answerEl = document.getElementById('answer');
+var dialogEl = document.getElementById('dialog');
+var quizBoxEl = document.getElementById("quiz-box");
+
+
+// timer
 var countdown = function () {
 var time = 30;
 
 var timeInterval = setInterval(function() {
     if (time >= 1) {
-        console.log("Time: " + time);
+        timerEl.textContent = "Time: " + time;
         time--;
     } else {
-        console.log("Time: 0");
+        timerEl.textContent = "Time: " + time;
         clearInterval(timeInterval);
     }
 }, 1000)
 } 
 
-countdown();
+
+// display question
+var displayQuestions = function() {
+    
+    dialogEl.innerHTML = "";
+    choicesEl.innerHTML = "";
+    questionEl.textContent = quiz[questionIncrementer].question;
+    for (i=0; i < quiz[questionIncrementer].choices.length; i++) {
+        var listChoiceEl = document.createElement("li");
+        listChoiceEl.textContent = quiz[questionIncrementer].choices[i];
+        listChoiceEl.className = "btn"
+        choicesEl.appendChild(listChoiceEl);
+    }
+    questionIncrementer++;
+};
+var buttonHandler = function(event) {
+    var targetEl = event.target;
+
+    if (targetEl.textContent === "Begin!") {
+        countdown();
+        questionIncrementer = 0;
+        displayQuestions();
+    }
+    else {
+        displayQuestions();
+    }
+}
+// landing screen and start
+var beginQuiz = function() {
+    questionEl.textContent = "Coding Quiz Challenge"
+    
+    dialogEl.innerHTML = "Try and beat the high score! Answer questions as accurately and <br> quickly as possible. Time will be deducted for incorrect responses"; 
+    var startEl = document.createElement("li");
+    startEl.className = "btn";
+    startEl.textContent = "Begin!";
+    startEl.setAttribute("list-style", "none");
+    choicesEl.appendChild(startEl);
+    };
+
+choicesEl.addEventListener("click", buttonHandler);
+beginQuiz();

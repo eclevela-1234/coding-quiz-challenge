@@ -23,31 +23,35 @@ header {
     justify-content: space-between;
     margin: 2vw;
 }
-.high-scores {
-    color: var(--secondary-color);
+#high-scores {
+    color: var(--secondary-color); 
+    position: relative;
 }
 
-.timer {
+#timer {
+    color: var(--primary-color);
+    position: relative;
+}
+
+#question {
     color: var(--primary-color);
 }
 
-h1 {
+#dialog {
     color: var(--primary-color);
+    font-size: 16px;
+    padding: 10px 10px 10px 0;
 }
+
 main {
     margin: 10vw 15vw
 }
-.high-scores {
-    position: relative;
-}
-.timer {
-    position: relative;
-}
+
 ol {
     display: inline-block;
     margin: 2vw 2vw 2vw 0;
 }
-li {
+.btn {
 
     padding: 10px 20px;
     list-style-position: inside;
@@ -57,11 +61,11 @@ li {
     border-radius: 5px;
     color: var(--tertiary-color);
 }
-li:hover {
+.btn:hover {
     background-color: var(--secondary-color);
 }
 
-.answer {
+#answer {
     color: var(--quaternary-color);
     font-style: italic;
     border-top: var(--quaternary-color) solid 1px;
