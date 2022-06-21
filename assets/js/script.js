@@ -10,3 +10,21 @@ var quiz  = [
     choices: ["Kamala Harris", "Dan Quayle", "Spiro Agnew", "Al Gore"],
     answer: "Al Gore"}
 ];
+
+// timer
+
+var countdown = function () {
+var time = 30;
+
+var timeInterval = setInterval(function() {
+    if (time >= 1) {
+        console.log("Time: " + time);
+        time--;
+    } else {
+        console.log("Time: 0");
+        clearInterval(timeInterval);
+    }
+}, 1000)
+} 
+
+countdown();
