@@ -10,7 +10,7 @@ var quiz  = [
     choices: ["Kamala Harris", "Dan Quayle", "Spiro Agnew", "Al Gore"],
     answer: "Al Gore"}
 ];
-
+var time = 30;
 //Question Incrementer
 var questionIncrementer = 0 
 
@@ -26,7 +26,7 @@ var quizBoxEl = document.getElementById("quiz-box");
 
 // timer
 var countdown = function () {
-var time = 30;
+
 
 var timeInterval = setInterval(function() {
     if (time >= 1) {
@@ -62,8 +62,27 @@ var buttonHandler = function(event) {
         questionIncrementer = 0;
         displayQuestions();
     }
+    else if (targetEl.textContent !== quiz[questionIncrementer-1].answer) {
+        time = time - 5;
+        if (questionIncrementer < quiz.length) {
+            answerEl.textContent = "Wrong!";
+            displayQuestions();
+        } else {
+            savedTime = time; 
+            time = 0;
+            endQuiz();
+
+        }
+    }
     else {
-        displayQuestions();
+        if (questionIncrementer < quiz.length) {
+            answerEl.textContent = "Correct!";
+            displayQuestions();
+        } else {
+            savedTime = time; 
+            time = 0;
+            endQuiz();
+        }
     }
 }
 // landing screen and start
@@ -71,12 +90,24 @@ var beginQuiz = function() {
     questionEl.textContent = "Coding Quiz Challenge"
     
     dialogEl.innerHTML = "Try and beat the high score! Answer questions as accurately and <br> quickly as possible. Time will be deducted for incorrect responses"; 
-    var startEl = document.createElement("li");
+    var startEl = document.createElement("button");
     startEl.className = "btn";
     startEl.textContent = "Begin!";
-    startEl.setAttribute("list-style", "none");
     choicesEl.appendChild(startEl);
     };
-
+var endQuiz = function(){
+    answerEl.textContent = ""
+    dialogEl.innerHTML = "";
+    choicesEl.innerHTML = "";
+    questionEl.textContent = "All Done!"
+    dialogEl.textContent = "Your final score is " + savedTime + "!";
+    // dialogEl.innerHTML = "<label for ='person'>Enter Name Here: </label>"
+    // var inputEl = document.createElement("input");
+    // inputEl.setAttribute("name", "person");
+   
+    // dialogEl.appendChild(inputEl);
+    // var person = inputEl.textContent;
+    // console.log(person);
+}
 choicesEl.addEventListener("click", buttonHandler);
 beginQuiz();
