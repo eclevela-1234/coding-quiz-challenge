@@ -21,11 +21,17 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    margin: 2vw;
+    margin: 1vw;
 }
 #high-scores {
+    padding: 10px 20px;
     color: var(--secondary-color); 
     position: relative;
+}
+#high-scores:hover {
+    color: var(--tertiary-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
 }
 
 #timer {

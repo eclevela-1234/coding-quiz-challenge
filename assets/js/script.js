@@ -24,6 +24,8 @@ var answerEl = document.getElementById('answer');
 var dialogEl = document.getElementById('dialog');
 var quizBoxEl = document.getElementById("quiz-box");
 var inputEl = document.createElement('input');
+var playerScore = {};
+var scoresArr = [];
 
 // timer
 var countdown = function () {
@@ -59,8 +61,10 @@ var buttonHandler = function(event) {
     var targetEl = event.target;
     if (targetEl.textContent === "Log Score") {
         
-        var playerScore = [inputEl.value, savedTime]
-        console.log(playerScore);
+        var playerScore = {"Player": inputEl.value, "Score":savedTime}
+        scoresArr.push(playerScore);
+        localStorage.setItem("scoresObj", JSON.stringify(scoresArr))
+        showScores();
     }
 
     else if (targetEl.textContent === "Begin!") {
@@ -95,7 +99,7 @@ var buttonHandler = function(event) {
 var beginQuiz = function() {
     questionEl.textContent = "Coding Quiz Challenge"
     
-    dialogEl.innerHTML = "Try and beat the high score! Answer questions as accurately and <br> quickly as possible. Time will be deducted for incorrect responses"; 
+    dialogEl.innerHTML = "Try and beat the high score! Answer questions as accurately and quickly as possible. Time will be deducted for incorrect responses"; 
     var startEl = document.createElement("button");
     startEl.className = "btn";
     startEl.textContent = "Begin!";
@@ -121,10 +125,38 @@ var endQuiz = function(){
 
  }
 
- var highscorehandler = function(event) {
-    event.preventDefault();
-    console.log(event.target.value);
+var loadScores = function(){
+    scoresObj = localStorage.getItem("scoresObj")
+    if(!scoresObj) {
+        console.log("there is no data");
+        return;
+    }
+    scoresArr = JSON.parse(scoresObj);
+    
+    }
+    
+
+
+var showScores = function() {
+    answerEl.textContent = ""
+    dialogEl.innerHTML = "";
+    choicesEl.innerHTML = "";
+    questionEl.textContent = "High Scores"
+    var startEl = document.createElement("button");
+    startEl.className = "btn";
+    startEl.textContent = "Begin!";
+    choicesEl.appendChild(startEl);
+    if (!scoresArr[0]){
+        return;
+    }
+
+    for (i =0; i< scoresArr.length; i++) {
+        var ScoresEl = document.createElement("li");
+        ScoresEl.textContent = scoresArr[i].Player + " - " + scoresArr[i].Score;
+        dialogEl.appendChild(ScoresEl);
+}
 }
 choicesEl.addEventListener("click", buttonHandler);
-inputEl.addEventListener("submit", highscorehandler)
+highScoreEl.addEventListener("click", showScores);
+loadScores()
 beginQuiz();
