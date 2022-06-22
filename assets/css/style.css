@@ -18,6 +18,7 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
+/* header group */
 header {
     display: flex;
     justify-content: space-between;
@@ -39,6 +40,10 @@ header {
     position: relative;
 }
 
+/* page content/questions */
+main {
+    margin: 10vw 15vw
+}
 #question {
     color: var(--primary-color);
 }
@@ -49,16 +54,11 @@ header {
     padding: 10px 10px 10px 0;
 }
 
-main {
-    margin: 10vw 15vw
-}
-
 ol {
     display: inline-block;
     margin: 2vw 2vw 2vw 0;
 }
 .btn {
-
     padding: 10px 20px;
     list-style-position: inside;
     background-color: var(--quinary-color);
